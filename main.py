@@ -57,7 +57,6 @@ testset_loader = DataLoader(testset, batch_size=batch_size, shuffle=False, num_w
 
 
 batches = len(testset)/batch_size
-
 # Define loss function and optimizer for fine-tuning
 optimizer = optim.Adam(params, lr=0.0001, betas=(0.9, 0.999), weight_decay=0.0)
 
@@ -114,10 +113,6 @@ for epoch in range(1):
         result = Result()
         result.evaluate(predictions.data, batched_gts.data)
         average_meter.update(result, gpu_time, data_time, image.size(0))
-
-    running_loss += loss.item() * images.size(0)
-    loss_values_epoch.append(running_loss / batches)
-    save_results(average_meter.average())
 
 # Report
 avg = average_meter.average()
